@@ -194,7 +194,7 @@ Edit the `SyntheticResultsTable` component in `src/App.jsx`:
 
 ```javascript
 const SyntheticResultsTable = () => {
-  const syntheticResults = [
+  const directResults/codeResults = [
     {
       model: 'MaAS',
       llm: 'GPT-4o',

@@ -1216,6 +1216,90 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+.results-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.results-table-header .results-table-title {
+  margin-bottom: 0;
+}
+
+.synthetic-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.synthetic-llm-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.synthetic-llm-filter .filter-label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.synthetic-filter-select {
+  min-width: 140px;
+  height: 2.2rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.score-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-secondary);
+}
+
+.score-toggle-button {
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.score-toggle-button:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+}
+
+.score-toggle-button.active {
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+/* Compact first two columns in synthetic results table */
+.synthetic-results-table th:nth-child(1),
+.synthetic-results-table td:nth-child(1) {
+  min-width: 130px;
+  padding-right: 0.75rem;
+}
+
+.synthetic-results-table th:nth-child(2),
+.synthetic-results-table td:nth-child(2) {
+  min-width: 100px;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 /* Acknowledgments */
 .acknowledgments {
   font-size: 0.95rem;
@@ -1321,6 +1405,16 @@ a:hover {
   .results-count {
     margin-left: 0;
     text-align: center;
+  }
+
+  .results-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .synthetic-controls {
+    width: 100%;
+    flex-wrap: wrap;
   }
 
   .leaderboard-table th,
