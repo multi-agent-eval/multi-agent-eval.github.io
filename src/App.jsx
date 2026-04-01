@@ -278,18 +278,79 @@ const LeaderboardTable = ({ datasetName }) => {
 
 // Synthetic dataset results table
 const SyntheticResultsTable = () => {
-  // Placeholder data - replace with actual results
-  const syntheticResults = [
+  const [scoreView, setScoreView] = useState('direct');
+  const [llmFilter, setLlmFilter] = useState('all');
+
+  // Direct answer score (model outputs final answer directly)
+  const directResults = [
+    { model: 'CoT-SC', llm: 'GPT-4o', investors_2: 40.28, investors_3: 23.61, investors_4: 17.95, investors_5: 12.28, investors_6: 13.57 },
+    { model: 'CoT-SC', llm: 'GPT-5', investors_2: 63.20, investors_3: 64.60, investors_4: 66.62, investors_5: 56.10, investors_6: 44.04 },
+    { model: 'DyLAN', llm: 'GPT-4o', investors_2: 53.12, investors_3: 29.86, investors_4: 15.06, investors_5: 14.69, investors_6: 14.29 },
+    { model: 'DyLAN', llm: 'GPT-5', investors_2: 58.34, investors_3: 59.38, investors_4: 59.29, investors_5: 48.90, investors_6: 39.76 },
+    { model: 'AFlow', llm: 'GPT-4o', investors_2: 52.08, investors_3: 27.78, investors_4: 20.51, investors_5: 13.38, investors_6: 18.10 },
+    { model: 'AFlow', llm: 'GPT-5', investors_2: 61.11, investors_3: 61.46, investors_4: 58.98, investors_5: 54.39, investors_6: 37.62 },
     { model: 'MaAS', llm: 'GPT-4o', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
-    { model: 'DyLAN', llm: 'GPT-4o', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
     { model: 'ADAS', llm: 'GPT-5', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
   ];
 
+  // Code execution score (model writes code and is scored by code output)
+  // Replace these placeholder values with your code-score results.
+  const codeResults = [
+    { model: 'CoT-SC', llm: 'GPT-4o', investors_2: 47.57, investors_3: 24.65, investors_4: 11.22, investors_5: 8.77, investors_6: 10.00 },
+    { model: 'CoT-SC', llm: 'GPT-5', investors_2: 67.13, investors_3: 56.65, investors_4: 56.37, investors_5: 41.94, investors_6: 28.17 },
+    { model: 'DyLAN', llm: 'GPT-4o', investors_2: 42.36, investors_3: 18.06, investors_4: 10.90, investors_5: 5.70, investors_6: 6.43 },
+    { model: 'DyLAN', llm: 'GPT-5', investors_2: 52.08, investors_3: 47.22, investors_4: 45.51, investors_5: 36.84, investors_6: 27.38 },
+    { model: 'AFlow', llm: 'GPT-4o', investors_2: 39.24, investors_3: 17.71, investors_4: 16.35, investors_5: 7.21, investors_6: 7.86 },
+    { model: 'AFlow', llm: 'GPT-5', investors_2: 54.52, investors_3: 46.88, investors_4: 42.63, investors_5: 32.46, investors_6: 20.24 },
+    { model: 'MaAS', llm: 'GPT-4o', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
+    { model: 'ADAS', llm: 'GPT-5', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
+  ];
+
+  const syntheticResults = scoreView === 'direct' ? directResults : codeResults;
+  const llmOptions = ['all', ...new Set(syntheticResults.map((result) => result.llm))];
+  const filteredSyntheticResults = llmFilter === 'all'
+    ? syntheticResults
+    : syntheticResults.filter((result) => result.llm === llmFilter);
+
   return (
     <div className="results-table-container">
-      <div className="results-table-title">Accuracy by Problem Complexity (% of investors)</div>
+      <div className="results-table-header">
+        <div className="results-table-title">Accuracy by Problem Complexity (% of investors)</div>
+        <div className="synthetic-controls">
+          <div className="synthetic-llm-filter">
+            <select
+              aria-label="Filter by LLM"
+              className="filter-select synthetic-filter-select"
+              value={llmFilter}
+              onChange={(e) => setLlmFilter(e.target.value)}
+            >
+              {llmOptions.map((llm) => (
+                <option key={llm} value={llm}>
+                  {llm === 'all' ? 'All LLMs' : llm}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="score-toggle" role="tablist" aria-label="Score type">
+            <button
+              type="button"
+              className={`score-toggle-button ${scoreView === 'direct' ? 'active' : ''}`}
+              onClick={() => setScoreView('direct')}
+            >
+              Direct Score
+            </button>
+            <button
+              type="button"
+              className={`score-toggle-button ${scoreView === 'code' ? 'active' : ''}`}
+              onClick={() => setScoreView('code')}
+            >
+              Code Score
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="table-container">
-        <table className="leaderboard-table">
+        <table className="leaderboard-table synthetic-results-table">
           <thead>
             <tr>
               <th>Model</th>
@@ -302,7 +363,7 @@ const SyntheticResultsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {syntheticResults.map((result, index) => (
+            {filteredSyntheticResults.map((result, index) => (
               <tr key={index}>
                 <td className="model-cell">
                   <div style={{ fontWeight: 600 }}>{result.model}</div>
