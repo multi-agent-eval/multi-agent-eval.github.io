@@ -291,6 +291,8 @@ const SyntheticResultsTable = () => {
     { model: 'AFlow', llm: 'GPT-5', investors_2: 61.11, investors_3: 61.46, investors_4: 58.98, investors_5: 54.39, investors_6: 37.62 },
     { model: 'MaAS', llm: 'GPT-4o', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
     { model: 'ADAS', llm: 'GPT-5', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
+    {model: 'MAS-Zero', llm: 'GPT-4o', investors_2: 58.65, investors_3: 28.20, investors_4: 24.04, investors_5: 19.74, investors_6: 23.57},
+    {model: 'MAS-Zero', llm: 'GPT-5', investors_2: 66.35, investors_3: 62.50, investors_4: 63.46, investors_5: 65.79, investors_6: 64.29},
   ];
 
   // Code execution score (model writes code and is scored by code output)
@@ -304,6 +306,8 @@ const SyntheticResultsTable = () => {
     { model: 'AFlow', llm: 'GPT-5', investors_2: 54.52, investors_3: 46.88, investors_4: 42.63, investors_5: 32.46, investors_6: 20.24 },
     { model: 'MaAS', llm: 'GPT-4o', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
     { model: 'ADAS', llm: 'GPT-5', investors_2: 0.0, investors_3: 0.0, investors_4: 0.0, investors_5: 0.0, investors_6: 0.0 },
+    {model: 'MAS-Zero', llm: 'GPT-4o', investors_2: 1.60, investors_3: 1.61, investors_4: 0.96, investors_5: 0.44, investors_6: 0.71},
+    {model: 'MAS-Zero', llm: 'GPT-5', investors_2: 46.15, investors_3: 35.58, investors_4: 27.88, investors_5: 24.34, investors_6: 24.29},
   ];
 
   const syntheticResults = scoreView === 'direct' ? directResults : codeResults;
